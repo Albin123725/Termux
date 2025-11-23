@@ -1,0 +1,31 @@
+services:
+  # Main Terminal
+  - type: web
+    name: termux-cluster-main
+    env: docker
+    plan: free
+    docker:
+      dockerfile: Dockerfile
+    envVars:
+      - key: SERVICE_TYPE
+        value: "main"
+      - key: NODE_COUNT
+        value: "1"
+      - key: TOTAL_RAM
+        value: "8"
+    ports:
+      - port: 10000
+        protocol: HTTP
+
+  # Optional Worker Nodes
+  - type: web
+    name: termux-worker-1
+    env: docker
+    plan: free
+    docker:
+      dockerfile: Dockerfile
+    envVars:
+      - key: SERVICE_TYPE
+        value: "worker"
+      - key: NODE_ID
+        value: "worker-1"
